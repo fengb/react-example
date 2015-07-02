@@ -7,7 +7,6 @@ var ROTATE_DELAY = 1000
 var App = React.createClass({
   getInitialState: function(){
     return {
-      imgSrcs: [],
       imgSrcInput: '',
     }
   },
@@ -18,7 +17,7 @@ var App = React.createClass({
 
   handleImgSrcInputKeypress: function(event){
     if(event.keyCode === KEY.ENTER){
-      this.state.imgSrcs.unshift(event.target.value)
+      this.props.imgSrcs.unshift(event.target.value)
       this.setState({ imgSrcInput: '' })
     }
   },
@@ -27,7 +26,7 @@ var App = React.createClass({
     return (
       <div className='app'>
         <input type='text' value={this.state.imgSrcInput} onChange={this.handleImgSrcInputChange} onKeyUp={this.handleImgSrcInputKeypress} />
-        <Carousel imgSrcs={this.state.imgSrcs} />
+        <Carousel imgSrcs={this.props.imgSrcs} />
       </div>
     )
   },
@@ -84,10 +83,9 @@ var Carousel = React.createClass({
   },
 
   render: function(){
-    var $imgs = this.state.imgSrcs.map(function(src){
+    var $imgs = this.state.imgSrcs.map(function(src, i){
       return (
-        <li>
-          <h2>{src}</h2>
+        <li key={src}>
           <img src={src}></img>
         </li>
       )
@@ -99,7 +97,15 @@ var Carousel = React.createClass({
   },
 })
 
+var srcs = [
+  'http://ia.media-imdb.com/images/M/MV5BODE1MDczNTUxOV5BMl5BanBnXkFtZTcwMTA0NDQyNA@@._V1_SX214_AL_.jpg',
+  'http://ia.media-imdb.com/images/M/MV5BNzM4OTcyMjEyNl5BMl5BanBnXkFtZTcwMzEwNDI4OA@@._V1_SX214_AL_.jpg',
+  'http://ia.media-imdb.com/images/M/MV5BMTI2ODMzODA0Ml5BMl5BanBnXkFtZTYwNTM3NzY5._V1._CR17,27,308,447_SY317_CR2,0,214,317_AL_.jpg',
+  'http://ia.media-imdb.com/images/M/MV5BMTc2MTU4ODI5MF5BMl5BanBnXkFtZTcwODI2MzAyOA@@._V1_SY317_CR7,0,214,317_AL_.jpg',
+  'http://ia.media-imdb.com/images/M/MV5BMTcyNzY4NjA2MF5BMl5BanBnXkFtZTcwNTkzNjk0MQ@@._V1_SY317_CR9,0,214,317_AL_.jpg',
+]
+
 React.render(
-  <App />,
+  <App imgSrcs={srcs} />,
   document.getElementById('react-root')
 )
