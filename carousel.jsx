@@ -5,27 +5,19 @@ var KEY = {
 var ROTATE_DELAY = 1000
 
 var App = React.createClass({
-  getInitialState: function(){
-    return {
-      imgSrcInput: '',
-    }
-  },
-
-  handleImgSrcInputChange: function(event){
-    this.setState({ imgSrcInput: event.target.value })
-  },
-
   handleImgSrcInputKeypress: function(event){
     if(event.keyCode === KEY.ENTER){
-      this.props.imgSrcs.unshift(event.target.value)
-      this.setState({ imgSrcInput: '' })
+      var input = event.target
+      this.props.imgSrcs.unshift(input.value)
+      input.value = ''
+      this.forceUpdate()
     }
   },
 
   render: function(){
     return (
       <div className='app'>
-        <input type='text' value={this.state.imgSrcInput} onChange={this.handleImgSrcInputChange} onKeyUp={this.handleImgSrcInputKeypress} />
+        <input type='text' onKeyUp={this.handleImgSrcInputKeypress} />
         <Carousel imgSrcs={this.props.imgSrcs} />
       </div>
     )

@@ -15,6 +15,8 @@
   * componentWillUnmount
 
   * shouldComponentUpdate
+  * forceUpdate
+
   * componentWillReceiveProps
   * componentWillUpdate
   * componentDidUpdate
