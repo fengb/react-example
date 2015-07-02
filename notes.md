@@ -1,4 +1,4 @@
-* MVC - reactive
+* Reactive views
   * Angular - dirty check
   * Ember - KVO
   * React - virtual DOM diff
